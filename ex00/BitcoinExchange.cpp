@@ -28,11 +28,19 @@ float BitcoinExchange::strtof(std::string str)
 {
 	std::stringstream ss;
 	float val;
-	
+
 	ss << str;
 	ss >> val;
-	// std::cout << str << " | " << val << std::endl;
+	return (val);
+}
 
+int BitcoinExchange::strtoi(std::string str)
+{
+	std::stringstream ss;
+	int val;
+
+	ss << str;
+	ss >> val;
 	return (val);
 }
 
@@ -44,6 +52,21 @@ void BitcoinExchange::showEntries(u_int n)
 		std::cout << it->first <<" "<< std::fixed << std::setprecision(2) << it->second << std::endl;
 		++it;
 	}
+}
+
+bool BitcoinExchange::checkDate(const std::string date)
+{
+	bool check = true;
+	std::string min = (*std::min_element(_db.begin(), _db.end())).first;
+	std::string max = (*std::max_element(_db.begin(), _db.end())).first;
+	int year = BitcoinExchange::strtoi(date.substr(0, 4));
+	int month = BitcoinExchange::strtoi(date.substr(5, 2));
+	int day = BitcoinExchange::strtoi(date.substr(8, 2));
+	check = (date >= min && date <= max) && (month >= 1 && month <= 12);
+	check = check && (day >= 1 && day <= 31);//!!!February
+	// std::cout << day << std::endl;
+	// if ()
+	return(check);
 }
 
 void BitcoinExchange::loadDB(const char *path)

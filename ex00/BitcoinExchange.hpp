@@ -21,6 +21,8 @@ public:
 
 	void loadDB(const char *path);
 	static float strtof(std::string str);
+	static int strtoi(std::string str);
+	bool checkDate(const std::string date);
 	void showEntries(u_int n);
 	float getRate(std::string date);
 	float findClose(std::string date);
