@@ -6,15 +6,15 @@
 #    By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/12 18:35:29 by mrubina           #+#    #+#              #
-#    Updated: 2024/04/15 13:24:41 by mrubina          ###   ########.fr        #
+#    Updated: 2024/04/18 11:11:11 by mrubina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CXXFLAGS = -std=c++98 -Wall -Werror -Wextra
+CXXFLAGS = -std=c++98 #-Wall -Werror -Wextra
 
-SRC = main.cpp
+SRC = main.cpp BitcoinExchange.cpp
 OBJ = $(SRC:.cpp=.o)
-NAME = easyfind
+NAME = btc
 
 all: $(NAME)
 
