@@ -51,11 +51,25 @@ void PmergeMe::sort()
 	v_p = getPairs(_v, tail);
 	unpair<int>(v_p, chain, pend);
 	print_vect(_v);
+	// print_vect(chain);
+	// print_vect(pend);
+	//testing insrtion
+	std::sort(chain.begin(), chain.end());
 	print_vect(chain);
-	print_vect(pend);
+	std::vector<int>::iterator it = chain.begin();
+	chain.insert(it, pend[0]);
+	// it += 5;
+	
+	binary_insert<int>(chain, 2);
+	print_vect(chain);
+	// bool t = std::binary_insert(chain.begin(), chain.end(), 7);
 	// MISort(_v);
-	std::cout << v_p[0].first << std::endl;
-	std::cout << v_p[3].first << std::endl;
+	
+	// std::vector<int>::iterator start = chain.begin();
+	// std::vector<int>::iterator end = chain.end() - 1;
+	// std::advance(it, (end - start)/2);
+	// std::cout << *it << std::endl;
+	// std::cout << v_p[3].first << std::endl;
 	// std::cout << v_p.size() << std::endl;
 }
 

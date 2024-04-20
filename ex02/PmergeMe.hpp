@@ -56,6 +56,39 @@ public:
 	}
 
 	template <typename T>
+	int binary_insert(std::vector<T> &chain, T val)
+	{
+		// int start = 0;
+		// int end = chain.size() - 1;
+		typename std::vector<T>::iterator start = chain.begin();
+		typename std::vector<T>::iterator end = chain.end() - 1;
+		typename std::vector<T>::iterator it;
+		if (val <= *start)
+		{
+			chain.insert(start, val);
+			return(0);
+		}
+		if (val >= *end)
+		{
+			chain.push_back(val);
+			return(0);
+		}
+		while(start != end && end != start + 1)
+		{
+			it = start;
+			std::advance(it, (end - start)/2);
+			if (val == *it)
+				break;
+			else if (val < *it)
+				end = it;
+			else
+				start = it;
+		}
+		chain.insert(it, val);
+		return(0);
+	}
+
+	template <typename T>
 	int MISort(std::vector<T> &v)
 	{
 		T tail;
@@ -73,22 +106,21 @@ public:
 		else
 		{
 			pair_v = getPairs(v, tail);//returns a vector of sorted pairs
-			// for(i = 0; i < pair_v.size(); i++)
-			// {
-			// 	if (pair_v[i].first < pair_v[i].second)
-			// 	{
-			// 		T tmp = pair_v[i].first;
-			// 		pair_v[i].first = pair_v[i].second;
-			// 		pair_v[i].second = tmp;
-			// 	}
-			// }
 			// MISort(pair_v); //vector is sorted
-			// unpair(pair_v, chain, pend);//we get chain and pend
-			// //add first element from pend
+			unpair(pair_v, chain, pend);//we get chain and pend
+			typename std::vector<T>::iterator it = chain.begin();
+			chain.insert(it, pend[0]);
 			// insert(chain, pend); //pend is inserted
 			//insert tail
 		}
 		return(0);
+	}
+
+	//insertion using Jacobthal order
+	template <typename T>
+	void insert()
+	{
+
 	}
 
 	int operation(int operand1, int operand2, int token);
