@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 17:52:03 by mrubina           #+#    #+#             */
-/*   Updated: 2024/04/21 18:30:27 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/04/21 22:54:22 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,30 @@ PmergeMe::PmergeMe(std::string arg)
 	}
 	_J_seq = JGen(17);
 }
-	// void unpair(std::vector<std::pair<T, T> > &pair_v, std::vector<T> &chain, std::vector<T> &pend)
-	// {
-	// 	for (typename std::vector<std::pair<T, T> >::iterator it = pair_v.begin(); it != pair_v.end(); ++it)
-	// 	{
-	// 		chain.push_back((*it).first);
-	// 		pend.push_back((*it).second);
-	// 	}
-	// }
-	//creates pair from 2 ints
+	// unpairs pairs after sorting
+	void PmergeMe::unpair(std::vector<VPair> &v_of_pairs, std::vector<int> &chain, std::vector<int> &pend)
+	{
+		for (std::vector<VPair>::iterator it = v_of_pairs.begin(); it != v_of_pairs.end(); ++it)
+		{
+			chain.push_back((*it)[0]);
+			pend.push_back((*it)[1]);
+			// std::cout << (*it)[0] << ",unp " << (*it)[1]<< std::endl;
+		}
+	}
+
+	void PmergeMe::unpair(std::vector<VPair> &v_of_pairs, std::vector<VPair> &chain, std::vector<VPair> &pend)
+	{
+		for (std::vector<VPair>::iterator it = v_of_pairs.begin(); it != v_of_pairs.end(); ++it)
+		{
+			std::cout << "unpair c "  << (*it) << std::endl;
+			(*it).unpairFirst();
+			chain.push_back((*it).unpairFirst());
+			pend.push_back((*it).unpairSecond());
+			// std::cout << (*it)[0] << "rtyryr " << (*it)[1]<< std::endl;
+		}
+		// pend[0].print();
+	}
+	// creates pair from 2 ints
 	// vpair PmergeMe::createPair(int n1, int n2)
 	// {
 	// 	vpair pair;
@@ -75,10 +90,10 @@ PmergeMe::PmergeMe(std::string arg)
 	// 	return (p1);
 	// }
 
-	std::vector<vpair> PmergeMe::getPairs(std::vector<int> &v, int &tail)
+	std::vector<VPair> PmergeMe::getPairs(std::vector<int> &v, int &tail)
 	{
 		int stop_ind = v.size() - 2;
-		std::vector<vpair> pair_vect; //vector of pairs
+		std::vector<VPair> v_of_pairs; //vector of pairs
 
 		if (v.size() % 2 == 1)
 		{
@@ -87,16 +102,70 @@ PmergeMe::PmergeMe(std::string arg)
 		}
 		for (int i = 0; i <= stop_ind; i += 2)
 		{
-			vpair pair(std::max(v[i], v[i + 1]), std::min(v[i], v[i + 1]));
-			pair_vect.push_back(pair);
+			VPair pair(std::max(v[i], v[i + 1]), std::min(v[i], v[i + 1]));
+			v_of_pairs.push_back(pair);
 		}
-		return (pair_vect);
+		return (v_of_pairs);
 	}
+
+	std::vector<VPair> PmergeMe::getPairs(std::vector<VPair> &v, VPair &tail)
+	{
+		int stop_ind = v.size() - 2;
+		std::vector<VPair> v_of_pairs; //vector of pairs
+		if (v.size() % 2 == 1)
+		{
+			stop_ind--;
+			tail = v[stop_ind + 2];
+		}
+		for (int i = 0; i <= stop_ind; i += 2)
+		{
+			VPair max_pair = VPair::max(v[i], v[i + 1]);
+			max_pair.merge(VPair::min(v[i], v[i + 1]));
+			v_of_pairs.push_back(max_pair);
+		}
+		return (v_of_pairs);
+	}
+
+	// int PmergeMe::binary_insert(std::vector<ind> &chain, int ind, T val)
+	// {
+	// 	// int start = 0;
+	// 	// int end = chain.size() - 1;
+	// 	typename std::vector<T>::iterator start = chain.begin();
+	// 	// std::advance(end, ind);
+	// 	typename std::vector<T>::iterator end = chain.begin() + ind;
+	// 	typename std::vector<T>::iterator it;
+	// 	// std::cout << *start << std::endl;
+	// 	// std::cout << *end << std::endl;
+	// 	if (val <= *start)
+	// 	{
+	// 		chain.insert(start, val);
+	// 		return(0);
+	// 	}
+	// 	if (val >= *end)
+	// 	{
+	// 		chain.push_back(val);
+	// 		return(0);
+	// 	}
+	// 	while(start != end && end != start + 1)
+	// 	{
+	// 		it = start;
+	// 		std::advance(it, (end - start)/2);
+	// 		if (val == *it)
+	// 			break;
+	// 		else if (val < *it)
+	// 			end = it;
+	// 		else
+	// 			start = it;
+	// 		// std::cout << "loop" << std::endl;
+	// 	}
+	// 	chain.insert(end, val);
+	// 	return(0);
+	// }
 
 	// std::vector<vpair> PmergeMe::getPairs(std::vector<vpair> &v, vpair &tail)
 	// {
 	// 	int stop_ind = v.size() - 2;
-	// 	std::vector<vpair> pair_vect; //vector of pairs
+	// 	std::vector<vpair> v_of_pairs; //vector of pairs
 
 	// 	if (v.size() % 2 == 1)
 	// 	{
@@ -106,9 +175,9 @@ PmergeMe::PmergeMe(std::string arg)
 	// 	for (int i = 0; i <= stop_ind; i += 2)
 	// 	{
 	// 		vpair pair = mergePairs(std::max(v[i], v[i + 1]), std::min(v[i], v[i + 1]));
-	// 		pair_vect.push_back(pair);
+	// 		v_of_pairs.push_back(pair);
 	// 	}
-	// 	return (pair_vect);
+	// 	return (v_of_pairs);
 	// }
 
 //Assignment operator:
@@ -124,21 +193,21 @@ PmergeMe::PmergeMe(PmergeMe const &original)
 }
 
 /*FUNCTIONS*/
-void PmergeMe::print_vect(std::vector<int> &v)
-{
-	for(size_t i = 0; i < v.size() - 1; i++)
-		std::cout << v[i]<< ", ";
-	std::cout << v[v.size() - 1] << std::endl;
-}
+// void PmergeMe::print_vect(std::vector<int> &v)
+// {
+// 	for(size_t i = 0; i < v.size() - 1; i++)
+// 		std::cout << v[i]<< ", ";
+// 	std::cout << v[v.size() - 1] << std::endl;
+// }
 
 void PmergeMe::sort()
 {
 	// int tail = 0;
 	std::vector<int> chain;
-	// std::vector<int> pend;
-	// std::vector<std::pair<int, int> > v_p;
-	// v_p = getPairs(_v, tail);
-	// unpair<int>(v_p, chain, pend);
+	// // std::vector<int> pend;
+	// std::vector<VPair> v_of_pairs;
+	// v_of_pairs = getPairs(_v, tail);
+	// unpair<int>(v_of_pairs, chain, pend);
 	// print_vect(_v);
 	// // print_vect(chain);
 	// print_vect(pend);
@@ -160,58 +229,17 @@ void PmergeMe::sort()
 	// print_vect(chain);
 	// bool t = std::binary_insert(chain.begin(), chain.end(), 7);
 	print_vect(_v);
-	// chain = MISort<int>(_v);
+	chain = MISort<int>(_v);
 	print_vect(chain);
 	
 	// std::vector<int>::iterator start = chain.begin();
 	// std::vector<int>::iterator end = chain.end() - 1;
 	// std::advance(it, (end - start)/2);
 	// std::cout << *it << std::endl;
-	// std::cout << v_p[3].first << std::endl;
-	// std::cout << v_p.size() << std::endl;
+	// std::cout << v_of_pairs[3].first << std::endl;
+	// std::cout << v_of_pairs.size() << std::endl;
 }
 
-int PmergeMe::operation(int operand1, int operand2, int token)
-{
-	switch(token)
-	{
-		case ('+') :
-			return( operand1 + operand2);
-		case ('-') :
-			return( operand1 - operand2);
-		case ('*') :
-			return( operand1 * operand2);
-		case ('/') :
-			return( operand1 / operand2);
-	}
-	return(0);
-}
-
-// int PmergeMe::runStack(std::string arg)
-// {
-// 	int operand1;
-// 	int	operand2;
-
-// 	for (std::string::iterator it = arg.begin(); it != arg.end(); ++it)
-// 	{
-// 		if (*it != ' ')
-// 		{
-// 			if (!isoperator(*it))
-// 				_stack.push(*it - '0');
-// 			else
-// 			{
-// 				operand2 = _stack.top();
-// 				_stack.pop();
-// 				operand1 = _stack.top();
-// 				_stack.pop();
-// 				operand1 = this->operation(operand1, operand2, *it);
-// 				if (it != arg.end())
-// 					_stack.push(operand1);
-// 			}
-// 		}
-// 	}
-// 	return(operand1);
-// }
 
 /*DESTRUCTOR*/
 PmergeMe::~PmergeMe(){}
