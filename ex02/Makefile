@@ -6,11 +6,13 @@
 #    By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/12 18:35:29 by mrubina           #+#    #+#              #
-#    Updated: 2024/04/20 13:06:12 by mrubina          ###   ########.fr        #
+#    Updated: 2024/04/21 00:23:45 by mrubina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CXXFLAGS = -std=c++98 #-Wall -Werror -Wextra
+CXXFLAGS = -std=c++98
+# -Wall -Werror -Wextra -Wunused-parameter 
+# -fmax-errors=5
 
 SRC = main.cpp PmergeMe.cpp
 OBJ = $(SRC:.cpp=.o)

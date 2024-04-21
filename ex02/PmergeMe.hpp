@@ -14,6 +14,7 @@ class PmergeMe {
 
 private:
 	std::vector<int> _v;
+	std::vector<int> _J_seq;
 
 public:
 
@@ -24,7 +25,6 @@ public:
 	// }
 	void print_vect(std::vector<int> &v);
 	void sort();
-
 
 	template <typename T>
 	std::vector<std::pair<T, T> > getPairs(std::vector<T> &v, T &tail)
@@ -56,13 +56,16 @@ public:
 	}
 
 	template <typename T>
-	int binary_insert(std::vector<T> &chain, T val)
+	int binary_insert(std::vector<T> &chain, int ind, T val)
 	{
 		// int start = 0;
 		// int end = chain.size() - 1;
 		typename std::vector<T>::iterator start = chain.begin();
-		typename std::vector<T>::iterator end = chain.end() - 1;
+		// std::advance(end, ind);
+		typename std::vector<T>::iterator end = chain.begin() + ind;
 		typename std::vector<T>::iterator it;
+		// std::cout << *start << std::endl;
+		// std::cout << *end << std::endl;
 		if (val <= *start)
 		{
 			chain.insert(start, val);
@@ -83,13 +86,39 @@ public:
 				end = it;
 			else
 				start = it;
+			// std::cout << "loop" << std::endl;
 		}
-		chain.insert(it, val);
+		chain.insert(end, val);
 		return(0);
 	}
 
+	//offset - index up to which we need to search increases because of insertion
 	template <typename T>
-	int MISort(std::vector<T> &v)
+	void insert_pend(std::vector<T> &chain, std::vector<T> &pend)
+	{
+		int group_end = 2;
+		int offset = 0;
+		int j_ind = 3;
+		int last_ind = pend.size() - 1;
+		while (_J_seq[j_ind - 1] <= last_ind + 1) //each loop for each group
+		{
+			// std::cout << _J_seq[j_ind] << ", " << last_ind << std::endl;
+			for (int i = std::min(_J_seq[j_ind], last_ind); i >= group_end; i--)
+			{
+				// std::cout << i << " i, " << pend[i] << std::endl;
+				binary_insert(chain, i + offset, pend[i]);
+				offset++;
+			}
+			group_end = _J_seq[j_ind] + 1;
+			j_ind++;
+		}
+	}
+
+	// template <typename T>
+	// std::vector<T> MISort(std::vector<T> &v)
+
+	template <typename T>
+	std::vector<T> MISort(std::vector<T> &v)
 	{
 		T tail;
 		std::vector<std::pair<T, T> > pair_v;
@@ -97,31 +126,36 @@ public:
 		std::vector<T> pend;
 
 		if (v.size() <= 1)
-			return(0);
+			return(v);
 		if (v.size() == 2)
 		{
 			std::sort(v.begin(), v.end());
-			return(0);
+			return(v);
 		}
 		else
 		{
 			pair_v = getPairs(v, tail);//returns a vector of sorted pairs
-			// MISort(pair_v); //vector is sorted
+			// std::cout << tail << std::endl;
+			// std::cout << pair_v.size() << std::endl;
+			// exit(0);
+			pair_v = MISort<std::pair<T, T> >(pair_v); //vector is sorted
 			unpair(pair_v, chain, pend);//we get chain and pend
 			typename std::vector<T>::iterator it = chain.begin();
 			chain.insert(it, pend[0]);
-			// insert(chain, pend); //pend is inserted
+			insert_pend<T>(chain, pend); //pend is inserted
+			if (v.size() % 2 == 1)
+				binary_insert(chain, chain.size() - 1, tail);
+			return(chain);
 			//insert tail
 		}
-		return(0);
 	}
 
 	//insertion using Jacobthal order
-	template <typename T>
-	void insert()
-	{
+	// template <typename T>
+	// void insert(std::vector<T> &chain, std::vector<T> &chain)
+	// {
 
-	}
+	// }
 
 	int operation(int operand1, int operand2, int token);
 

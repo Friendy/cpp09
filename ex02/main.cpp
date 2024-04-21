@@ -14,12 +14,13 @@ typedef std::pair<pair1, pair1> pair2;
 
 int main(int argc, char *argv[])
 {
-	// if (argc <= 1)
-	// {
-	// 	std::cerr << "Error";
-	// 	return(-1);
-	// }
-PmergeMe pm("1 3 5 9 7 2 6 8 4 0");
+	if (argc <= 1)
+	{
+		std::cerr << "Error";
+		return(-1);
+	}
+// PmergeMe pm("1 3 5 9 7 2 6 8 4 0");
+PmergeMe pm("6 3 10 2");
 pm.sort();
 // pm.print_vect();
 // std::pair<int, int>p1(2, 234);
@@ -33,7 +34,7 @@ pm.sort();
 // v.push_back(p6);
 // std::cout << (*(v.cbegin())).first.first << std::endl;
 // std::sort(v.begin(), v.end());
-// std::cout << v[0].first.first << std::endl;
+std::cout << argv[0] << std::endl;
 	
 return (0);
 }
