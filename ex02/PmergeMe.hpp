@@ -4,10 +4,13 @@
 # include <iostream>
 # include <sstream>
 # include <vector>
+# include <array>
 # include <algorithm>
+# include "VPair.hpp"
 // # include "PmergeMe.hpp"
 
-typedef std::pair<int, int> int_pair;
+// typedef std::pair<int, int> int_pair;
+typedef std::vector<int> vpair;
 // typedef std::vector int_pair;
 
 class PmergeMe {
@@ -26,34 +29,10 @@ public:
 	void print_vect(std::vector<int> &v);
 	void sort();
 
-	template <typename T>
-	std::vector<std::pair<T, T> > getPairs(std::vector<T> &v, T &tail)
-	{
-		int stop_ind = v.size() - 2;
-		std::vector<std::pair<T, T> > pair_vect; //vector of pairs
+	// vpair mergePairs(vpair p1, vpair p2);
+	std::vector<vpair> getPairs(std::vector<int> &v, int &tail);
 
-		if (v.size() % 2 == 1)
-		{
-			stop_ind--;
-			tail = v[stop_ind + 2];
-		}
-		for (int i = 0; i <= stop_ind; i += 2)
-		{
-			std::pair<T, T> pair = std::make_pair(std::max(v[i], v[i + 1]), std::min(v[i], v[i + 1]));
-			pair_vect.push_back(pair);
-		}
-		return (pair_vect);
-	}
 
-	template <typename T>
-	void unpair(std::vector<std::pair<T, T> > &pair_v, std::vector<T> &chain, std::vector<T> &pend)
-	{
-		for (typename std::vector<std::pair<T, T> >::iterator it = pair_v.begin(); it != pair_v.end(); ++it)
-		{
-			chain.push_back((*it).first);
-			pend.push_back((*it).second);
-		}
-	}
 
 	template <typename T>
 	int binary_insert(std::vector<T> &chain, int ind, T val)
@@ -117,38 +96,69 @@ public:
 	// template <typename T>
 	// std::vector<T> MISort(std::vector<T> &v)
 
-	template <typename T>
-	std::vector<T> MISort(std::vector<T> &v)
-	{
-		T tail;
-		std::vector<std::pair<T, T> > pair_v;
-		std::vector<T> chain;
-		std::vector<T> pend;
+	// template <typename T>
+	// std::vector<T> MISort(std::vector<T> &v)
+	// {
+	// 	T tail;
+	// 	std::vector<std::pair<T, T> > pair_v;
+	// 	std::vector<T> chain;
+	// 	std::vector<T> pend;
 
-		if (v.size() <= 1)
-			return(v);
-		if (v.size() == 2)
-		{
-			std::sort(v.begin(), v.end());
-			return(v);
-		}
-		else
-		{
-			pair_v = getPairs(v, tail);//returns a vector of sorted pairs
-			// std::cout << tail << std::endl;
-			// std::cout << pair_v.size() << std::endl;
-			// exit(0);
-			pair_v = MISort<std::pair<T, T> >(pair_v); //vector is sorted
-			unpair(pair_v, chain, pend);//we get chain and pend
-			typename std::vector<T>::iterator it = chain.begin();
-			chain.insert(it, pend[0]);
-			insert_pend<T>(chain, pend); //pend is inserted
-			if (v.size() % 2 == 1)
-				binary_insert(chain, chain.size() - 1, tail);
-			return(chain);
-			//insert tail
-		}
-	}
+	// 	if (v.size() <= 1)
+	// 		return(v);
+	// 	if (v.size() == 2)
+	// 	{
+	// 		std::sort(v.begin(), v.end());
+	// 		return(v);
+	// 	}
+	// 	else
+	// 	{
+	// 		pair_v = getPairs(v, tail);//returns a vector of sorted pairs
+	// 		// std::cout << tail << std::endl;
+	// 		// std::cout << pair_v.size() << std::endl;
+	// 		// exit(0);
+	// 		pair_v = MISort<std::pair<T, T> >(pair_v); //vector is sorted
+	// 		unpair(pair_v, chain, pend);//we get chain and pend
+	// 		typename std::vector<T>::iterator it = chain.begin();
+	// 		chain.insert(it, pend[0]);
+	// 		insert_pend<T>(chain, pend); //pend is inserted
+	// 		if (v.size() % 2 == 1)
+	// 			binary_insert(chain, chain.size() - 1, tail);
+	// 		return(chain);
+	// 		//insert tail
+	// 	}
+	// }
+	// std::vector<int> MISort(std::vector<int> &v)
+	// {
+	// 	int tail;
+	// 	std::vector<std::pair<T, T> > pair_v;
+	// 	std::vector<T> chain;
+	// 	std::vector<T> pend;
+
+	// 	if (v.size() <= 1)
+	// 		return(v);
+	// 	if (v.size() == 2)
+	// 	{
+	// 		std::sort(v.begin(), v.end());
+	// 		return(v);
+	// 	}
+	// 	else
+	// 	{
+	// 		pair_v = getPairs(v, tail);//returns a vector of sorted pairs
+	// 		// std::cout << tail << std::endl;
+	// 		// std::cout << pair_v.size() << std::endl;
+	// 		// exit(0);
+	// 		pair_v = MISort<std::pair<T, T> >(pair_v); //vector is sorted
+	// 		unpair(pair_v, chain, pend);//we get chain and pend
+	// 		typename std::vector<T>::iterator it = chain.begin();
+	// 		chain.insert(it, pend[0]);
+	// 		insert_pend<T>(chain, pend); //pend is inserted
+	// 		if (v.size() % 2 == 1)
+	// 			binary_insert(chain, chain.size() - 1, tail);
+	// 		return(chain);
+	// 		//insert tail
+	// 	}
+	// }
 
 	//insertion using Jacobthal order
 	// template <typename T>

@@ -19,9 +19,18 @@ int main(int argc, char *argv[])
 		std::cerr << "Error";
 		return(-1);
 	}
+VPair p(1, 4);
+VPair p1(10, 40);
+VPair p3(154, 89);
+p.merge(p1);
+p.merge(p3);
+// p[0];
+// std::cout << p[2] << std::endl;
+p.print();
+
 // PmergeMe pm("1 3 5 9 7 2 6 8 4 0");
-PmergeMe pm("6 3 10 2");
-pm.sort();
+// PmergeMe pm("6 3 10 2");
+// pm.sort();
 // pm.print_vect();
 // std::pair<int, int>p1(2, 234);
 // std::pair<int, int>p2(34, 98);
@@ -34,7 +43,7 @@ pm.sort();
 // v.push_back(p6);
 // std::cout << (*(v.cbegin())).first.first << std::endl;
 // std::sort(v.begin(), v.end());
-std::cout << argv[0] << std::endl;
+// std::cout << argv[0] << std::endl;
 	
 return (0);
 }

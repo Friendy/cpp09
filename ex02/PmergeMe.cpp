@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   PmergeMe.cpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/21 17:52:03 by mrubina           #+#    #+#             */
+/*   Updated: 2024/04/21 18:30:27 by mrubina          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "PmergeMe.hpp"
 
 /*CONSTRUCTORS*/
@@ -38,6 +50,66 @@ PmergeMe::PmergeMe(std::string arg)
 	}
 	_J_seq = JGen(17);
 }
+	// void unpair(std::vector<std::pair<T, T> > &pair_v, std::vector<T> &chain, std::vector<T> &pend)
+	// {
+	// 	for (typename std::vector<std::pair<T, T> >::iterator it = pair_v.begin(); it != pair_v.end(); ++it)
+	// 	{
+	// 		chain.push_back((*it).first);
+	// 		pend.push_back((*it).second);
+	// 	}
+	// }
+	//creates pair from 2 ints
+	// vpair PmergeMe::createPair(int n1, int n2)
+	// {
+	// 	vpair pair;
+	// 	pair.push_back(n1);
+	// 	pair.push_back(n2);
+	// 	return (pair);
+	// }
+
+	//merges 2 pairs
+	// vpair PmergeMe::mergePairs(vpair p1, vpair p2)
+	// {
+	// 	for (size_t i = 0; i < p2.size() - 1; i++)
+	// 		p1.push_back(p2[i]);
+	// 	return (p1);
+	// }
+
+	std::vector<vpair> PmergeMe::getPairs(std::vector<int> &v, int &tail)
+	{
+		int stop_ind = v.size() - 2;
+		std::vector<vpair> pair_vect; //vector of pairs
+
+		if (v.size() % 2 == 1)
+		{
+			stop_ind--;
+			tail = v[stop_ind + 2];
+		}
+		for (int i = 0; i <= stop_ind; i += 2)
+		{
+			vpair pair(std::max(v[i], v[i + 1]), std::min(v[i], v[i + 1]));
+			pair_vect.push_back(pair);
+		}
+		return (pair_vect);
+	}
+
+	// std::vector<vpair> PmergeMe::getPairs(std::vector<vpair> &v, vpair &tail)
+	// {
+	// 	int stop_ind = v.size() - 2;
+	// 	std::vector<vpair> pair_vect; //vector of pairs
+
+	// 	if (v.size() % 2 == 1)
+	// 	{
+	// 		stop_ind--;
+	// 		tail = v[stop_ind + 2];
+	// 	}
+	// 	for (int i = 0; i <= stop_ind; i += 2)
+	// 	{
+	// 		vpair pair = mergePairs(std::max(v[i], v[i + 1]), std::min(v[i], v[i + 1]));
+	// 		pair_vect.push_back(pair);
+	// 	}
+	// 	return (pair_vect);
+	// }
 
 //Assignment operator:
 PmergeMe &PmergeMe::operator=(PmergeMe const &)
@@ -88,7 +160,7 @@ void PmergeMe::sort()
 	// print_vect(chain);
 	// bool t = std::binary_insert(chain.begin(), chain.end(), 7);
 	print_vect(_v);
-	chain = MISort<int>(_v);
+	// chain = MISort<int>(_v);
 	print_vect(chain);
 	
 	// std::vector<int>::iterator start = chain.begin();
