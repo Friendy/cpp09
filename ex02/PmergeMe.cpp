@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 17:52:03 by mrubina           #+#    #+#             */
-/*   Updated: 2024/04/21 22:54:22 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/04/22 09:07:54 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ PmergeMe::PmergeMe(std::string arg)
 	{
 		for (std::vector<VPair>::iterator it = v_of_pairs.begin(); it != v_of_pairs.end(); ++it)
 		{
-			std::cout << "unpair c "  << (*it) << std::endl;
+			// std::cout << "unpair c "  << (*it) << std::endl;
 			(*it).unpairFirst();
 			chain.push_back((*it).unpairFirst());
 			pend.push_back((*it).unpairSecond());
@@ -228,7 +228,7 @@ void PmergeMe::sort()
 	// insert_pend(chain, pend);
 	// print_vect(chain);
 	// bool t = std::binary_insert(chain.begin(), chain.end(), 7);
-	print_vect(_v);
+	// print_vect(_v);
 	chain = MISort<int>(_v);
 	print_vect(chain);
 	

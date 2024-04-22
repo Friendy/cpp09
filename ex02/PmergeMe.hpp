@@ -52,8 +52,8 @@ public:
 		// std::advance(end, ind);
 		typename std::vector<T>::iterator end = chain.begin() + ind;
 		typename std::vector<T>::iterator it;
-		// std::cout << *start << std::endl;
-		// std::cout << *end << std::endl;
+		// std::cout << "start " << *start << std::endl;
+		// std::cout << "end " << *end << std::endl;
 		if (val <= *start)
 		{
 			chain.insert(start, val);
@@ -67,15 +67,23 @@ public:
 		while (start != end && end != start + 1)
 		{
 			it = start;
+			// std::cout << "start " << *start << std::endl;
+			// std::cout << "end " << *end << std::endl;
 			std::advance(it, (end - start)/2);
 			if (val == *it)
+			{
+				end = it;
 				break;
+			}
 			else if (val < *it)
 				end = it;
 			else
 				start = it;
 			// std::cout << "loop" << std::endl;
 		}
+		// std::cout << *start << std::endl;
+		// std::cout << *end << std::endl;
+		// 	std::cout << *it << std::endl;
 		chain.insert(end, val);
 		return(0);
 	}
@@ -88,15 +96,15 @@ public:
 		int offset = 1;
 		int j_ind = 3;
 		int last_ind = pend.size() - 1;
-		print_vect(chain);
-		print_vect(pend);
+		// print_vect(chain);
+		// print_vect(pend);
 		// std::cout << " chain " << std::endl;
 		while (_J_seq[j_ind - 1] <= last_ind + 1) //each loop for each group
 		{
 			// std::cout << std::min(_J_seq[j_ind], last_ind) << ", jhjh" << last_ind << std::endl;
 			for (int i = std::min(_J_seq[j_ind], last_ind); i >= group_end; i--)
 			{
-				std::cout << i << " i, " << i + offset << " +off " << pend[i] << std::endl;
+				// std::cout << i << " i, " << i + offset << " +off " << pend[i] << std::endl;
 				binary_insert(chain, i + offset, pend[i]);
 				offset++;
 			}
@@ -132,7 +140,7 @@ public:
 			// std::cout << "v size" << v_of_pairs.size() << std::endl;
 			// exit(0);
 			v_of_pairs = MISort<VPair>(v_of_pairs); //vector is sorted
-			std::cout << "pri" << std::endl;
+			// std::cout << "pri" << std::endl;
 			// print_vect(v_of_pairs);
 			// v_of_pairs[1].print();
 			// std::cout << "pend0" << std::endl;
@@ -144,46 +152,24 @@ public:
 			// print_vect(chain);
 			// print_vect(pend);
 			insert_pend<T>(chain, pend); //pend is inserted
-			std::cout << "chain before tail insertion" << v.size() << "tail " << tail << std::endl;
-			print_vect(chain);
+			// std::cout << "chain before tail insertion:" << std::endl;
+			// print_vect(chain);
+			// std::cout << "chain size: " << chain.size() << std::endl;
 			if (v.size() % 2 == 1)
+			{
+				// std::cout << "starting insert for tail " << std::endl;
 				binary_insert(chain, chain.size() - 1, tail);
-			print_vect(chain);
+				// std::cout << "tail " << tail << std::endl;
+				// std::cout << "chain after tail insertion:" << std::endl;
+				// print_vect(chain);
+			}
+
+			// std::cout << "chain before tail insertion" << v.size() << "tail " << tail << std::endl;
+			// print_vect(chain);
 			return(chain);
 			//insert tail
 		}
 	}
-	// std::vector<int> MISort(std::vector<int> &v)
-	// {
-	// 	int tail;
-	// 	std::vector<std::pair<T, T> > v_of_pairs;
-	// 	std::vector<T> chain;
-	// 	std::vector<T> pend;
-
-	// 	if (v.size() <= 1)
-	// 		return(v);
-	// 	if (v.size() == 2)
-	// 	{
-	// 		std::sort(v.begin(), v.end());
-	// 		return(v);
-	// 	}
-	// 	else
-	// 	{
-	// 		v_of_pairs = getPairs(v, tail);//returns a vector of sorted pairs
-	// 		// std::cout << tail << std::endl;
-	// 		// std::cout << v_of_pairs.size() << std::endl;
-	// 		// exit(0);
-	// 		v_of_pairs = MISort<VPair>(v_of_pairs); //vector is sorted
-	// 		unpair(v_of_pairs, chain, pend);//we get chain and pend
-	// 		typename std::vector<T>::iterator it = chain.begin();
-	// 		chain.insert(it, pend[0]);
-	// 		insert_pend<T>(chain, pend); //pend is inserted
-	// 		if (v.size() % 2 == 1)
-	// 			binary_insert(chain, chain.size() - 1, tail);
-	// 		return(chain);
-	// 		//insert tail
-	// 	}
-	// }
 
 	//insertion using Jacobthal order
 	// template <typename T>

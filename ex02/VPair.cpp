@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 00:04:03 by mrubina           #+#    #+#             */
-/*   Updated: 2024/04/21 22:01:30 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/04/22 09:07:29 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 	/*FUNCTIONS*/
 	void VPair::merge(VPair p)
 	{
-		std::cout << p.size() << std::endl;
+		// std::cout << p.size() << std::endl;
 		for (size_t i = 0; i <= p.size() - 1; i++)
 			_v.push_back(p[i]);
 	}
@@ -64,12 +64,12 @@
 	VPair VPair::unpairFirst()
 	{
 		VPair first;
-		std::cout << this->size()/2 - 1 << std::endl;
+		// std::cout << this->size()/2 - 1 << std::endl;
 		for (int i = 0; i <= this->size()/2 - 1; i++)
 			first.push(this->_v[i]);
-		std::cout << "printing first" << std::endl;
-		this->print();
-		first.print();
+		// std::cout << "printing first" << std::endl;
+		// this->print();
+		// first.print();
 		return(first);
 	}
 
