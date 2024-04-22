@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:14:19 by mrubina           #+#    #+#             */
-/*   Updated: 2024/04/19 19:02:40 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/04/22 01:52:40 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,20 @@ private:
 	float _rate;
 
 public:
-	void loadDB(const char *path);
+	//main functions
+	void process_file(const char *input_path);
+	void process_entry();
+	void checkDate(const std::string date);
+	float getRate();
+	void print_output();
+
+	//helper functions
 	static float strtof(std::string str);
 	static int strtoi(std::string str);
-	void checkDate(const std::string date);
+	int getPrecision(float f);
 	void showEntries(u_int n);
-	float getRate();
-	void process_file(const char *db_path, const char *input_path);
-	void print_output();
-	void process_entry();
-	
-	Iterator getClose(std::string date);
 
+	//exceptions
 	class BadDate;
 	class DateTooLow;
 	class NumberTooLarge;
@@ -54,6 +56,7 @@ public:
 	class BadInput;
 
 	BitcoinExchange();
+	BitcoinExchange(const char *path);
 	BitcoinExchange(BitcoinExchange const &original);
 	BitcoinExchange &operator=(BitcoinExchange const &original);
 	~BitcoinExchange();
