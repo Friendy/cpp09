@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 00:04:03 by mrubina           #+#    #+#             */
-/*   Updated: 2024/04/22 11:02:27 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/04/22 15:02:03 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void VPair::merge(VPair p)
 VPair VPair::unpairFirst()
 {
 	VPair first;
-	for (int i = 0; i <= this->size()/2 - 1; i++)
+	for (size_t i = 0; i <= this->size()/2 - 1; i++)
 		first.push(this->_v[i]);
 	return(first);
 }
@@ -52,7 +52,7 @@ VPair VPair::unpairFirst()
 VPair VPair::unpairSecond()
 {
 	VPair second;
-	for (int i = this->size()/2; i <= this->size() - 1; i++)
+	for (size_t i = this->size()/2; i <= this->size() - 1; i++)
 		second.push(this->_v[i]);
 	return(second);
 }
