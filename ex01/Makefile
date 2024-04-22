@@ -6,11 +6,11 @@
 #    By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/12 18:35:29 by mrubina           #+#    #+#              #
-#    Updated: 2024/04/18 18:50:14 by mrubina          ###   ########.fr        #
+#    Updated: 2024/04/23 01:54:50 by mrubina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CXXFLAGS = -std=c++98 #-Wall -Werror -Wextra
+CXXFLAGS = -std=c++98 -Wall -Werror -Wextra
 
 SRC = main.cpp RPN.cpp
 OBJ = $(SRC:.cpp=.o)
