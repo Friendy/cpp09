@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 23:16:49 by mrubina           #+#    #+#             */
-/*   Updated: 2024/04/23 01:51:25 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/04/23 13:48:57 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int RPN::operation(int operand1, int operand2, int token)
 int RPN::err()
 {
 	std::cerr << "Error\n";
-	exit(0);
+	exit(-1);
 }
 
 int RPN::runStack(std::string arg)
@@ -76,21 +76,18 @@ int RPN::runStack(std::string arg)
 				err();
 			if (is_digit(*it))
 				_stack.push(*it - '0');
-			else if (!_stack.empty())
+			else if (_stack.size() >= 2)
 			{
 				operand2 = _stack.top();
 				_stack.pop();
-				if (!_stack.empty())
-				{
-					operand1 = _stack.top();
-					_stack.pop();
-					operand1 = this->operation(operand1, operand2, *it);
-					if (it != arg.end() - 1)
-						_stack.push(operand1);
-				}
-				else
-					err();
+				operand1 = _stack.top();
+				_stack.pop();
+				operand1 = this->operation(operand1, operand2, *it);
+				if (it != arg.end() - 1)
+					_stack.push(operand1);
 			}
+			else
+				err();
 		}
 	}
 	if (!_stack.empty())

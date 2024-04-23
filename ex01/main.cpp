@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 23:16:42 by mrubina           #+#    #+#             */
-/*   Updated: 2024/04/23 01:40:36 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/04/23 13:50:37 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,3 @@ int main(int argc, char *argv[])
 	std::cout << rpn.runStack(argv[1]) << std::endl;
 	return (0);
 }
-
-

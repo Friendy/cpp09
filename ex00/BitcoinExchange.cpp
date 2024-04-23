@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:14:16 by mrubina           #+#    #+#             */
-/*   Updated: 2024/04/23 12:12:29 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/04/23 13:16:09 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,6 @@ float BitcoinExchange::getRate()
 		it = _db.upper_bound(_date);
 		if (it != _db.begin())
 			--it;
-		// std::cout << "lower?" << it->first << std::endl;
 	}
 	return(it->second);
 }

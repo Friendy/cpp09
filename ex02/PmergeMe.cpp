@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 17:52:03 by mrubina           #+#    #+#             */
-/*   Updated: 2024/04/23 12:53:47 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/04/23 13:57:51 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ PmergeMe::PmergeMe(int argc, char *argv[])
 		if (*argv[i] == '\0')
 		{
 			std::cerr << "Error\n";
-			exit(0);
+			exit(-1);
 		}
 		ss << argv[i];
 		ss >> num;
@@ -123,7 +123,7 @@ void PmergeMe::checkNumber(long num, std::string substr)
 	if (num < 0 || num > INT_MAX || it != substr.end())
 	{
 		std::cerr << "Error\n";
-		exit(0);
+		exit(-1);
 	}
 }
 
