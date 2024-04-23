@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:14:16 by mrubina           #+#    #+#             */
-/*   Updated: 2024/04/23 03:45:11 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/04/23 12:12:29 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ class BitcoinExchange::NegativeNumber : public std::exception
 BitcoinExchange::BitcoinExchange(){}
 
 /*
-first getline is to ommit the header
+first getline is to omit the header
  */
 BitcoinExchange::BitcoinExchange(const char *path)
 {
@@ -81,7 +81,7 @@ BitcoinExchange::BitcoinExchange(const char *path)
 	{
 		std::getline(db_file, date, ',');
 		std::getline(db_file, string_val);
-		if (date.size() == 10) //create better date checker
+		if (date.size() > 0)
 			_db[date] = this->strtof(string_val);
 	}
 }
@@ -161,15 +161,20 @@ void BitcoinExchange::process_entry()
 
 void BitcoinExchange::checkDate(const std::string date)
 {
-	bool leap = false;
-
 	if (date[4] != '-' || date[7] != '-')
 		throw BadDate();
 	if (date < _db.begin()->first || date > _db.rbegin()->first)
-		throw DateOutOfBounds();
+			throw DateOutOfBounds();
 	int year = BitcoinExchange::strtoi(date.substr(0, 4));
 	int month = BitcoinExchange::strtoi(date.substr(5, 2));
 	int day = BitcoinExchange::strtoi(date.substr(8, 2));
+	checkDateGeo(year, month, day);
+}
+
+void BitcoinExchange::checkDateGeo(int year, int month, int day)
+{
+	bool leap = false;
+
 	if (month < 1 || month > 12 || day < 1 || day > 31)
 		throw BadDate();
 	if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0))
@@ -178,7 +183,7 @@ void BitcoinExchange::checkDate(const std::string date)
 		throw BadDate();
 	else if (month == 2 && !leap && day > 28)
 		throw BadDate();
-	if ((month == 9 || month == 4 || month == 9 || month == 11) && day > 30)
+	if ((month == 9 || month == 4 || month == 6 || month == 11) && day > 30)
 		throw BadDate();
 }
 

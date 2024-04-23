@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 17:52:03 by mrubina           #+#    #+#             */
-/*   Updated: 2024/04/22 22:50:03 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/04/23 12:53:47 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ PmergeMe::PmergeMe(int argc, char *argv[])
 {
 	long num;
 	std::stringstream ss;
-	size_t start = 0;
-	size_t end = 0;
 	int i = 1;
 	while (i < argc)
 	{
@@ -60,13 +58,13 @@ PmergeMe::PmergeMe(PmergeMe const &original)
 }
 
 /*FUNCTIONS*/
-void timediff(struct timeval after, struct timeval before)
+void PmergeMe::timediff(struct timeval after, struct timeval before)
 {
 	time_t s_diff = after.tv_sec - before.tv_sec;
 	suseconds_t us_diff = s_diff * 1000000 + after.tv_usec - before.tv_usec;
 	double total_diff = static_cast<double>(us_diff) / 1000000;
 	std::cout << std::fixed << std::setprecision(6);
-	std::cout << total_diff << "us\n";
+	std::cout << total_diff << " us\n";
 }
 
 void PmergeMe::sort()
@@ -82,7 +80,7 @@ void PmergeMe::sort()
 	print_vect(_v);
 	std::cout << "After: ";
 	print_vect(v);
-	std::cout << "Time to process a range of " << v.size() << " elements with std::vector ";
+	std::cout << "Time to process a range of " << v.size() << " elements with std::vector: ";
 	timediff(after, before);
 	gettimeofday(&before, NULL);
 	d = MISort<int>(_d);
@@ -91,7 +89,7 @@ void PmergeMe::sort()
 	// print_vect(_d);
 	// std::cout << "After: ";
 	// print_vect(d);
-	std::cout << "Time to process a range of " << d.size() << " elements with std::deque ";
+	std::cout << "Time to process a range of " << d.size() << " elements with std::deque: ";
 	timediff(after, before);
 }
 

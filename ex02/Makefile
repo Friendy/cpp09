@@ -6,13 +6,12 @@
 #    By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/12 18:35:29 by mrubina           #+#    #+#              #
-#    Updated: 2024/04/22 21:57:34 by mrubina          ###   ########.fr        #
+#    Updated: 2024/04/23 12:53:10 by mrubina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CXXFLAGS = -std=c++98 #-g -fsanitize=thread
-# ASFLAG = -fsanitize=address
-# THSFLAG = -fsanitize=thread
+CXXFLAGS = -std=c++98 -Wall -Werror -Wextra
+
 
 SRC = main.cpp PmergeMe.cpp VPair.cpp
 OBJ = $(SRC:.cpp=.o)

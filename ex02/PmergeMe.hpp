@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:51:27 by mrubina           #+#    #+#             */
-/*   Updated: 2024/04/22 22:36:59 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/04/23 12:51:24 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,8 @@
 # include <algorithm>
 # include <deque>
 # include "VPair.hpp"
-# include <stdexcept>
 # include <sys/time.h>
 # include <iomanip>
-
-# define VectorSort 0;
-# define ListSort 1;
 
 class PmergeMe {
 
@@ -46,6 +42,7 @@ public:
 
 	std::vector<int> JGen(int n);
 	void checkNumber(long num, std::string substr);
+	void timediff(struct timeval after, struct timeval before);
 
 	//template functions
 	//templates for vectors
@@ -249,6 +246,7 @@ template <typename T>
 			std::cout << v[i] << " ";
 		std::cout << v[v.size() - 1] << std::endl;
 	}
+
 	PmergeMe(int argc, char *argv[]);
 	PmergeMe();
 	PmergeMe(PmergeMe const &original);

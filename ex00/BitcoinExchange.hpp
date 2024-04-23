@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:14:19 by mrubina           #+#    #+#             */
-/*   Updated: 2024/04/23 02:51:06 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/04/23 12:11:47 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 typedef unsigned int u_int;
 typedef std::map<std::string, float>::iterator Iterator;
+
 
 class BitcoinExchange {
 
@@ -39,6 +40,7 @@ public:
 	void process_file(const char *input_path);
 	void process_entry();
 	void checkDate(const std::string date);
+	void checkDateGeo(int year, int month, int day);
 	float getRate();
 	void print_output();
 
