@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:14:16 by mrubina           #+#    #+#             */
-/*   Updated: 2024/04/22 02:06:13 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/04/23 03:45:11 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ class BitcoinExchange::BadDate : public BitcoinExchange::BadInput
 		}
 };
 
-class BitcoinExchange::DateTooLow : public BitcoinExchange::BadInput
+class BitcoinExchange::DateOutOfBounds : public BitcoinExchange::BadInput
 {
 	public:
 	virtual const char *what() const throw()
 	{
-		return("Error: date is lower than in any entry. => ");
+		return("Error: date out of scope. => ");
 	}
 };
 
@@ -161,20 +161,25 @@ void BitcoinExchange::process_entry()
 
 void BitcoinExchange::checkDate(const std::string date)
 {
-	bool check = true;
-	std::string min = (*std::min_element(_db.begin(), _db.end())).first;
+	bool leap = false;
+
+	if (date[4] != '-' || date[7] != '-')
+		throw BadDate();
+	if (date < _db.begin()->first || date > _db.rbegin()->first)
+		throw DateOutOfBounds();
 	int year = BitcoinExchange::strtoi(date.substr(0, 4));
 	int month = BitcoinExchange::strtoi(date.substr(5, 2));
 	int day = BitcoinExchange::strtoi(date.substr(8, 2));
-	// std::cout << year << std::endl;
 	if (month < 1 || month > 12 || day < 1 || day > 31)
 		throw BadDate();
-	if (date < min)
-		throw DateTooLow();
-	// check = (date >= min && date <= max) && (month >= 1 && month <= 12);
-	check = check && (day >= 1 && day <= 31);//!!!February
-	
-	// if ()
+	if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0))
+		leap = true;
+	if (month == 2 && leap && day > 29)
+		throw BadDate();
+	else if (month == 2 && !leap && day > 28)
+		throw BadDate();
+	if ((month == 9 || month == 4 || month == 9 || month == 11) && day > 30)
+		throw BadDate();
 }
 
 float BitcoinExchange::getRate()
@@ -241,7 +246,7 @@ int BitcoinExchange::strtoi(std::string str)
 void BitcoinExchange::showEntries(u_int n)
 {
 	std::map<std::string, float>::iterator it = _db.begin();
-	for (int i = 0; i <= n; i++)
+	for (u_int i = 0; i <= n; i++)
 	{
 		std::cout << it->first <<" "<< std::fixed << std::setprecision(2) << it->second << std::endl;
 		++it;

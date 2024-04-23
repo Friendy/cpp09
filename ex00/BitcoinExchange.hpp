@@ -6,7 +6,7 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:14:19 by mrubina           #+#    #+#             */
-/*   Updated: 2024/04/22 01:52:40 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/04/23 02:51:06 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ public:
 
 	//exceptions
 	class BadDate;
-	class DateTooLow;
+	class DateOutOfBounds;
 	class NumberTooLarge;
 	class NegativeNumber;
 	class BadInput;

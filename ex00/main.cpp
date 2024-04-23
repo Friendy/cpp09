@@ -6,11 +6,15 @@
 /*   By: mrubina <mrubina@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:42:04 by mrubina           #+#    #+#             */
-/*   Updated: 2024/04/22 01:55:58 by mrubina          ###   ########.fr       */
+/*   Updated: 2024/04/23 02:59:08 by mrubina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
+
+void checkLeaks() {
+	system("leaks btc");
+}
 
 /* 
 1. Parsing db
@@ -31,7 +35,7 @@ formating
 
 int main(int argc, char *argv[])
 {
-	//add larger than upper
+	// atexit(checkLeaks);
 	if (argc <= 1)
 	{
 		std::cerr << "Error: coudn't open file.\n";
